@@ -1,0 +1,30 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+
+jobs:
+  build-and-run:
+    runs-on: Self-hosted
+
+    steps:
+      # Stage 1: Checkout
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+        # Stage 3: Build using Maven
+      - name: Build project
+        run: |
+          mvn -B clean package --file pom.xml
+      - name: Build Image
+        run:
+          sudo docker build -t testimage .
+      - name: delete container
+        run:
+          sudo docker rm -f $(sudo docker ps -aq)
+      - name: create container
+        run:
+          sudo docker run -d --name myapplication -p 8082:8080 testimage
+          
+
+   

@@ -1,0 +1,77 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.techlanders</groupId>
+  <artifactId>devops</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>devops Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+
+  <!-- Properties for Java version and build -->
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <!-- Optional: Define properties to manage versions centrally -->
+    <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+  </properties>
+
+  <!-- Dependencies -->
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>6.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Optional: Add Azure SDK or other dependencies if necessary -->
+    <dependency>
+      <groupId>com.microsoft.azure</groupId>
+      <artifactId>azure-storage</artifactId>
+      <version>8.6.6</version> <!-- Specify Azure SDK version -->
+    </dependency>
+  </dependencies>
+
+  <!-- Build Configuration -->
+  <build>
+    <plugins>
+      <!-- Update the Maven War Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.3.2</version>
+        <configuration>
+          <!-- Optionally, specify the webapp directory -->
+          <webAppDirectory>${project.build.directory}/webapps</webAppDirectory>
+        </configuration>
+      </plugin>
+
+      <!-- Azure DevOps: Use Maven Plugin for Deployments (if applicable) -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>deploy-to-azure-maven-plugin</artifactId>
+        <version>1.0.0</version> <!-- Specify version for Azure DevOps plugin -->
+        <executions>
+          <execution>
+            <phase>deploy</phase> <!-- Phase where it will run -->
+            <goals>
+              <goal>deploy</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+
+    <!-- Final Name of the WAR Artifact -->
+    <finalName>devops</finalName>
+  </build>
+</project>

@@ -1,0 +1,21 @@
+  ***************** pipeline to create aws ec2---------------
+   
+   pipeline {
+    agent any
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('aws-credentials')    // aws-credentials--- credentials id 
+        AWS_SECRET_ACCESS_KEY = credentials('aws-credentials')
+    }
+    stages {
+        stage('Launch EC2 Instance') {
+            steps {
+                sh '''
+                aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+                aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
+                aws ec2 run-instances --image-id ami-0b8c6b923777519db --count 1 --instance-type t2.micro --key-name sandeep --region us-west-2
+                '''
+            }
+        }
+       
+    }
+}
